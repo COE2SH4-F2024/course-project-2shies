@@ -5,6 +5,8 @@
 using namespace std;
 
 #define DELAY_CONST 100000
+#define height 10
+#define length 20
 
 bool exitFlag;
 
@@ -55,7 +57,31 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
+    int i,j;
     MacUILib_clearScreen();    
+    for (i=0;i<height;i++)
+    {
+        for (j=0;j<length;j++)
+        {
+            if (i==0 || i==height-1 || j==0 ||j==length-1) 
+            {
+                cout<<"#"<<endl; //which one to use
+                MacUILib_printf("#"); 
+            }
+            else if (i==2&&j==9)
+                cout<<"P"<<endl;
+            else if (i==6&&j==12)
+                cout<<"~"<<endl;
+            else if (i==7&&j==3)
+                cout<<"o"<<endl;
+            else if (i==4&&j==16)
+                cout<<"+"<<endl;
+            else if (i==3&j==14)
+                cout<<"X"<<endl;
+            else
+                cout<<" "<<endl;
+        }
+    }
 }
 
 void LoopDelay(void)
