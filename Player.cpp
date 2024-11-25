@@ -7,8 +7,8 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPos.pos->x=5; //later will be boardsize/2
-    playerPos.pos->y=5;
+    playerPos.pos->x=mainGameMechsRef->getBoardSizeX() / 2; //later will be boardsize/2
+    playerPos.pos->y=mainGameMechsRef->getBoardSizeY() / 2;
     playerPos.symbol='@';
 
 }
@@ -30,6 +30,7 @@ objPos Player::getPlayerPos() const
 void Player::updatePlayerDir()
 {
     //get input from pookie
+    char input = mainGameMechsRef->getInput();
 
         // PPA3 input processing logic       
     switch(input)

@@ -3,6 +3,7 @@
 #include "objPos.h"
 
 #include "Player.h"
+#include "GameMechs.h"
 
 using namespace std;
 
@@ -10,7 +11,9 @@ using namespace std;
 #define height 10
 #define length 20
 
+
 Player *myPlayer; //global pointer
+GameMechs *myGM; // global pointer
 
 bool exitFlag;
 
@@ -46,14 +49,17 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    myPlayer=new Player(nullptr);
+    myGM = new GameMechs();
+    myPlayer=new Player(myGM);
 
     exitFlag = false;
 }
 
 void GetInput(void)
 {
-   
+    if(MacUILib_hasChar()) {
+        input = MacUILib_getChar();
+    }
 }
 
 void RunLogic(void)

@@ -7,6 +7,8 @@
 #include "objPos.h"
 #include "objPosArrayList.h"
 
+#include "MacUILib.h"
+
 using namespace std;
 
 class GameMechs
@@ -32,7 +34,7 @@ class GameMechs
         bool getLoseFlagStatus() const;
         void setLoseFlag();
 
-        char getInput() const;
+        char getInput();
         void setInput(char this_input);
         void clearInput();
 
