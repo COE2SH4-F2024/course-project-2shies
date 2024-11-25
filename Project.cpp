@@ -15,7 +15,6 @@ using namespace std;
 Player *myPlayer; //global pointer
 GameMechs *myGM; // global pointer
 
-bool exitFlag;
 
 void Initialize(void);
 void GetInput(void);
@@ -31,7 +30,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(myGM->getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -52,14 +51,13 @@ void Initialize(void)
     myGM = new GameMechs();
     myPlayer=new Player(myGM);
 
-    exitFlag = false;
 }
 
 void GetInput(void)
 {
-    if(MacUILib_hasChar()) {
-        input = MacUILib_getChar();
-    }
+    // if(MacUILib_hasChar()) {
+    //     input = MacUILib_getChar();
+    // }
 }
 
 void RunLogic(void)
@@ -112,6 +110,7 @@ void CleanUp(void)
     MacUILib_clearScreen();    
 
     delete myPlayer;
+    delete myGM;
 
     MacUILib_uninit();
 }
