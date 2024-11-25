@@ -16,9 +16,9 @@ class objPos
 
         objPos();
         objPos(int xPos, int yPos, char sym);
-        objPos(const objPos &newPos); //idk maybe copy constructor
+        objPos(const objPos& thisPos); //idk maybe copy constructor
         ~objPos(); //destructor (4/4)
-        objPos& operator=(const objPos &copy);
+        objPos& operator=(const objPos &thisPos);
         
         // Respect the rule of six / minimum four
         // [TODO] Implement the missing special member functions to meet the minimum four rule
