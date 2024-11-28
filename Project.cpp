@@ -61,6 +61,8 @@ void GetInput(void)
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
+    myPlayer->movePlayer();
+    myPlayer->border();
     // myGM->setInput(0);
 }
 
