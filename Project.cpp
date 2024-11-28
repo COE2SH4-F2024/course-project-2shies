@@ -62,13 +62,11 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
-    myPlayer->border();
     // myGM->setInput(0);
 }
 
 void DrawScreen(void)
 {
-    //int i,j;
     MacUILib_clearScreen();
 
     //implement copy assignment operator to make work
