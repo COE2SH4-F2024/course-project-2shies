@@ -95,24 +95,24 @@ void Player::movePlayer()
     }
 }
 
-void Player::border()
+void Player::playerBorder()
 {
-    if (playerPos.pos->y==9)
+    if (playerPos.pos->y==(mainGameMechsRef->getBoardSizeY()-1))
     {
         playerPos.pos->y=1;
     }
     else if (playerPos.pos->y==0)
     {
-        playerPos.pos->y=8;
+        playerPos.pos->y=(mainGameMechsRef->getBoardSizeY()-1);
     }
 
-    if (playerPos.pos->x==19)
+    if (playerPos.pos->x==(mainGameMechsRef->getBoardSizeX()-1))
     {
         playerPos.pos->x=1;
     }
     else if (playerPos.pos->x==0)
     {
-        playerPos.pos->x=19;
+        playerPos.pos->x=(mainGameMechsRef->getBoardSizeX()-1);
     }
 }
 // More methods to be added
