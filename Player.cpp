@@ -35,6 +35,9 @@ void Player::updatePlayerDir()
         // PPA3 input processing logic       
     switch(input)
     {
+        case ' ': //exit
+            mainGameMechsRef->setExitTrue();
+            break;
         case 'W': case 'w':
             {
                 if (myDir==LEFT || myDir==RIGHT || myDir==STOP)
