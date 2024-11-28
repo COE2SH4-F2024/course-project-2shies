@@ -20,8 +20,6 @@ objPos::objPos(int xPos, int yPos, char sym)
 // [TODO] Implement the missing special member functions to meet the minimum four rule
 
 
-
-
 void objPos::setObjPos(objPos o)
 {
     pos->x = o.pos->x;
