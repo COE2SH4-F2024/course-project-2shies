@@ -7,7 +7,7 @@ GameMechs::GameMechs()
     loseFlag = false;
     score = 0;
 
-    boardSizeX = 20;
+    boardSizeX = 20; // probably change to 30 and 15
     boardSizeY = 10;
 
 }

@@ -1,4 +1,5 @@
 #include "objPos.h"
+//#include "stddef.h"
 
 objPos::objPos()
 {
@@ -20,8 +21,9 @@ objPos::objPos(int xPos, int yPos, char sym)
 // [TODO] Implement the missing special member functions to meet the minimum four rule
 objPos::objPos(const objPos& thisPos)
 {
-    if (pos!=nullptr) delete pos;
+    
     pos=new Pos;
+    //if (pos!=nullptr) delete pos;
     pos->x=thisPos.pos->x;
     pos->y=thisPos.pos->y;
     symbol=thisPos.symbol;
@@ -32,9 +34,9 @@ objPos::~objPos()
 }
 objPos& objPos::operator=(const objPos &thisPos)
 {
-    if(this != nullptr)
+    if(this != &thisPos)
     {
-        if(pos!=nullptr) delete pos;
+        //if(pos!=nullptr) delete pos;
         pos=new Pos;
         pos->x=thisPos.pos->x;
         pos->y=thisPos.pos->y;

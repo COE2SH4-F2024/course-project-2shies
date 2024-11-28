@@ -55,14 +55,13 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    // if(MacUILib_hasChar()) {
-    //     input = MacUILib_getChar();
-    // }
+    
 }
 
 void RunLogic(void)
 {
-    
+    myPlayer->updatePlayerDir();
+    // myGM->setInput(0);
 }
 
 void DrawScreen(void)
@@ -72,31 +71,22 @@ void DrawScreen(void)
 
     //implement copy assignment operator to make work
     objPos playerPos=myPlayer->getPlayerPos();
-    MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
+    //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
 
-    /* for (i=0;i<height;i++)
+    for (int i=0;i<height;i++)
     {
-        for (j=0;j<length;j++)
+        for (int j=0;j<length;j++)
         {
-            if (i==0 || i==height-1 || j==0 ||j==length-1) 
-            {
-                cout<<"#"<<endl; //which one to use
+            if (i==0 || i==height-1 || j==0 ||j==length-1) {
                 MacUILib_printf("#"); 
-            }
-            else if (i==2&&j==9)
-                cout<<"P"<<endl;
-            else if (i==6&&j==12)
-                cout<<"~"<<endl;
-            else if (i==7&&j==3)
-                cout<<"o"<<endl;
-            else if (i==4&&j==16)
-                cout<<"+"<<endl;
-            else if (i==3&j==14)
-                cout<<"X"<<endl;
+            } else if (playerPos.pos->x == j && playerPos.pos->y == i)
+                MacUILib_printf("%c", playerPos.symbol);
             else
-                cout<<" "<<endl;
+                MacUILib_printf(" ");
         }
-    } */
+        MacUILib_printf("\n");
+    }
+    //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
 }
 
 void LoopDelay(void)
