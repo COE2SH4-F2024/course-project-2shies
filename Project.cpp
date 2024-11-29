@@ -64,10 +64,10 @@ void Initialize(void)
 void GetInput(void)
 {
     //check we can randomly move food around 
-    if(myGM->getInput() == 't') {
+    /* if(myGM->getInput() == 't') {
         myFood->generateFood(myPlayer->getPlayerPos());
         myGM->setInput(0);
-    }
+    } */
     
 }
 
@@ -87,7 +87,7 @@ void DrawScreen(void)
     int playerSize = playerPos->getSize();
 
 
-    objPos foodPos = myFood->getFoodPos();
+    //objPos foodPos = myFood->getFoodPos();
     //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
 
     for (int i=0;i<height;i++)
@@ -105,14 +105,14 @@ void DrawScreen(void)
             }
             //} else if (playerPos.pos->x == j && playerPos.pos->y == i) {
             //    MacUILib_printf("%c", playerPos.symbol);
-            else if (foodPos.pos->x == j && foodPos.pos->y == i) {
-                MacUILib_printf("%c", foodPos.symbol);
-            } else
+            //else if (foodPos.pos->x == j && foodPos.pos->y == i) {
+            //    MacUILib_printf("%c", foodPos.symbol);
+            else
                 MacUILib_printf(" ");
         }
         MacUILib_printf("\n");
     }
-    MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
+    //MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
 }
 
 void LoopDelay(void)
