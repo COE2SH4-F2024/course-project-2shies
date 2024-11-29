@@ -4,27 +4,34 @@
 Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
+    playerPosList = new objPosArrayList();
     myDir = STOP;
 
     // more actions to be included
+    objPos headPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
+    playerPosList->insertHead(headPos);
+
+
+    /*
     playerPos.pos->x=mainGameMechsRef->getBoardSizeX() / 2;
     playerPos.pos->y=mainGameMechsRef->getBoardSizeY() / 2;
-    playerPos.symbol='@';
+    playerPos.symbol='@';*/
 
 }
 
 
 Player::~Player()
 {
+    delete playerPosList;
     // delete any heap members here
     //no keyword "new" in constuctor therefore no heap memebers to delete
     //leaving empty for now
 }
 
-objPos Player::getPlayerPos() const
+objPosArrayList* Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
-    return playerPos;
+    return playerPosList;
 }
 
 void Player::updatePlayerDir()

@@ -83,7 +83,10 @@ void DrawScreen(void)
     MacUILib_clearScreen();
 
     //implement copy assignment operator to make work
-    objPos playerPos=myPlayer->getPlayerPos();
+    objPosArrayList* playerPos=myPlayer->getPlayerPos();
+    int playerSize = playerPos->getSize();
+
+
     objPos foodPos = myFood->getFoodPos();
     //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
 
@@ -91,11 +94,18 @@ void DrawScreen(void)
     {
         for (int j=0;j<length;j++)
         {
+            for(int k = 0; k < playerSize; k++) {
+                objPos thisSeg = playerPos->getElement(k);
+                //check if current segment at x y matches the (j,i) coordinates. If yes, print the symbol
+
+                //skip if else block below if you have printed something in that spot
+            }
             if (i==0 || i==height-1 || j==0 ||j==length-1) {
                 MacUILib_printf("#"); 
-            } else if (playerPos.pos->x == j && playerPos.pos->y == i) {
-                MacUILib_printf("%c", playerPos.symbol);
-            } else if (foodPos.pos->x == j && foodPos.pos->y == i) {
+            }
+            //} else if (playerPos.pos->x == j && playerPos.pos->y == i) {
+            //    MacUILib_printf("%c", playerPos.symbol);
+            else if (foodPos.pos->x == j && foodPos.pos->y == i) {
                 MacUILib_printf("%c", foodPos.symbol);
             } else
                 MacUILib_printf(" ");
