@@ -4,6 +4,7 @@
 
 #include "Player.h"
 #include "GameMechs.h"
+#include "Food.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ using namespace std;
 
 Player *myPlayer; //global pointer
 GameMechs *myGM; // global pointer
+Food *myFood; //global pointer
 
 
 void Initialize(void);
@@ -48,13 +50,24 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
+    srand(time(NULL));
+
+
     myGM = new GameMechs();
     myPlayer=new Player(myGM);
+    myFood = new Food(myGM->getBoardSizeX(), myGM->getBoardSizeY());
 
+    //objPos blockOff = myPlayer->getPlayerPos(); //this way doesn't seem to work- do it directly
+    myFood->generateFood(myPlayer->getPlayerPos());
 }
 
 void GetInput(void)
 {
+    //check we can randomly move food around 
+    if(myGM->getInput() == 't') {
+        myFood->generateFood(myPlayer->getPlayerPos());
+        myGM->setInput(0);
+    }
     
 }
 
@@ -71,6 +84,7 @@ void DrawScreen(void)
 
     //implement copy assignment operator to make work
     objPos playerPos=myPlayer->getPlayerPos();
+    objPos foodPos = myFood->getFoodPos();
     //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
 
     for (int i=0;i<height;i++)
@@ -79,14 +93,16 @@ void DrawScreen(void)
         {
             if (i==0 || i==height-1 || j==0 ||j==length-1) {
                 MacUILib_printf("#"); 
-            } else if (playerPos.pos->x == j && playerPos.pos->y == i)
+            } else if (playerPos.pos->x == j && playerPos.pos->y == i) {
                 MacUILib_printf("%c", playerPos.symbol);
-            else
+            } else if (foodPos.pos->x == j && foodPos.pos->y == i) {
+                MacUILib_printf("%c", foodPos.symbol);
+            } else
                 MacUILib_printf(" ");
         }
         MacUILib_printf("\n");
     }
-    //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
+    MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
 }
 
 void LoopDelay(void)
@@ -101,6 +117,7 @@ void CleanUp(void)
 
     delete myPlayer;
     delete myGM;
+    delete myFood;
 
     MacUILib_uninit();
 }
