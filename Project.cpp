@@ -58,7 +58,7 @@ void Initialize(void)
     myFood = new Food(myGM->getBoardSizeX(), myGM->getBoardSizeY());
 
     //objPos blockOff = myPlayer->getPlayerPos(); //this way doesn't seem to work- do it directly
-    myFood->generateFood(myPlayer->getPlayerPos());
+   //myFood->generateFood(myPlayer->getPlayerPos());
 }
 
 void GetInput(void)

@@ -107,39 +107,46 @@ void Player::movePlayer()
                 temp.pos->x=(mainGameMechsRef->getBoardSizeX()-1);
             }
 
-            if (temp.pos->x!=food.getFoodPos().pos->x)//food position)
+            /* if (temp.pos->x!=food.getFoodPos().pos->x)//food position)
             {
                 playerPosList->removeTail();
-            }
+            } */
 
             //for loop to check if any position of head is same
 
             playerPosList->insertHead(temp);
+            playerPosList->removeTail();
             
             break;
 
         case RIGHT:
-            playerPos.pos->x++; // Shift String Right by 1 Character
-            if (playerPos.pos->x==(mainGameMechsRef->getBoardSizeX()-1))
+            temp.pos->x++; // Shift Right
+            if (temp.pos->x==(mainGameMechsRef->getBoardSizeX()-1))
             {
-                playerPos.pos->x=1;
+                temp.pos->x=1;
             }
+            playerPosList->insertHead(temp);
+            playerPosList->removeTail();
             break;
         
         case DOWN:
-            playerPos.pos->y++; // Shift String down by 1 Character
-            if (playerPos.pos->y==(mainGameMechsRef->getBoardSizeY()-1))
+            temp.pos->y++; // Shift String down by 1 Character
+            if (temp.pos->y==(mainGameMechsRef->getBoardSizeY()-1))
             {
-                playerPos.pos->y=1;
+                temp.pos->y=1;
             }
+            playerPosList->insertHead(temp);
+            playerPosList->removeTail();
             break;
 
         case UP:
-            playerPos.pos->y--; // Shift String up by 1 Character
-            if (playerPos.pos->y==0)
+            temp.pos->y--; // Shift String up by 1 Character
+            if (temp.pos->y==0)
             {
-                playerPos.pos->y=(mainGameMechsRef->getBoardSizeY()-1);
+                temp.pos->y=(mainGameMechsRef->getBoardSizeY()-1);
             }
+            playerPosList->insertHead(temp);
+            playerPosList->removeTail();
             break;
     }
 }
