@@ -85,6 +85,8 @@ void DrawScreen(void)
     //implement copy assignment operator to make work
     objPosArrayList* playerPos=myPlayer->getPlayerPos();
     int playerSize = playerPos->getSize();
+    objPos tempBody;
+    bool snake;
 
 
     //objPos foodPos = myFood->getFoodPos();
@@ -94,25 +96,29 @@ void DrawScreen(void)
     {
         for (int j=0;j<length;j++)
         {
+            snake = false;
             for(int k = 0; k < playerSize; k++) {
-                objPos thisSeg = playerPos->getElement(k);
-                //check if current segment at x y matches the (j,i) coordinates. If yes, print the symbol
+                playerPos->getElement(k);
+                if(j == tempBody.pos->x && i == tempBody.pos->y) {
+                    MacUILib_printf("%c", tempBody.getSymbol());
+                    snake = true;
+                    break;
+                }
+            }
+            if(snake) continue;
 
-                //skip if else block below if you have printed something in that spot
-            }
-            if (i==0 || i==height-1 || j==0 ||j==length-1) {
+            if (i==0 || i==myGM->getBoardSizeY()-1 || j==0 ||j==myGM->getBoardSizeX()-1) {
                 MacUILib_printf("#"); 
-            }
-            //} else if (playerPos.pos->x == j && playerPos.pos->y == i) {
-            //    MacUILib_printf("%c", playerPos.symbol);
-            //else if (foodPos.pos->x == j && foodPos.pos->y == i) {
-            //    MacUILib_printf("%c", foodPos.symbol);
-            else
+            } else
                 MacUILib_printf(" ");
         }
         MacUILib_printf("\n");
     }
     //MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
+    /* if(myGM->getLoseFlagStatus()) {
+        MacUILib_clearScreen();
+        MacUILib_printf("Womp womp, you lost. Your final score was %d", myGM->getScore());
+    } */
 }
 
 void LoopDelay(void)
@@ -125,8 +131,8 @@ void CleanUp(void)
 {
     MacUILib_clearScreen();    
 
-    delete myPlayer;
-    delete myGM;
+    myGM->~GameMechs();
+    myPlayer->~Player();
     delete myFood;
 
     MacUILib_uninit();
