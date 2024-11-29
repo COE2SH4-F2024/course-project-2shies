@@ -11,7 +11,6 @@ Player::Player(GameMechs* thisGMRef)
     objPos headPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
     playerPosList->insertHead(headPos);
 
-
     /*
     playerPos.pos->x=mainGameMechsRef->getBoardSizeX() / 2;
     playerPos.pos->y=mainGameMechsRef->getBoardSizeY() / 2;
@@ -84,16 +83,39 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
+
+    updatePlayerDir();
+    //insert new objPos in head of list
+    //check if delete tail element
+    objPos temp;
+    temp=playerPosList->getHeadElement();
+
+    //Food food(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2);
+
+    
+
+    //temp objPos calculate new head pos
+    //get head element of playerposlist
+
     // PPA3 Finite State Machine logic
     switch(myDir)
     {
         case LEFT:    
-            playerPos.pos->x--; // Shift String Left by 1 Character
-            
-            if (playerPos.pos->x==0)
+            temp.pos->x--; // Shift Left
+            if (temp.pos->x==0)
             {
-                playerPos.pos->x=(mainGameMechsRef->getBoardSizeX()-1);
+                temp.pos->x=(mainGameMechsRef->getBoardSizeX()-1);
             }
+
+            if (temp.pos->x!=food.getFoodPos().pos->x)//food position)
+            {
+                playerPosList->removeTail();
+            }
+
+            //for loop to check if any position of head is same
+
+            playerPosList->insertHead(temp);
+            
             break;
 
         case RIGHT:
