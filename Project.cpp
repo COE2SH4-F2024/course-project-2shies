@@ -62,10 +62,10 @@ void Initialize(void)
 void GetInput(void)
 {
     //check we can randomly move food around 
-    /* if(myGM->getInput() == 't') {
-        myFood->generateFood(myPlayer->getPlayerPos());
+    if(myGM->getInput() == 't') {
+        myFood->generateFood(myPlayer->getPlayerPos()->getHeadElement());
         myGM->setInput(0);
-    } */
+    }
     
 }
 
@@ -73,6 +73,7 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+    myGM->clearInput();
     //myGM->setInput(0);
 }
 
@@ -109,15 +110,13 @@ void DrawScreen(void)
             }
 
             if(snake) continue;
-            tempFood=playerPos->getElement(0);
-            if (j==tempFood.pos->x && i==tempFood.pos->y){
-                MacUILib_printf("%c", tempFood.getSymbol());
-                snake = true;
+            if (j==foodPos.pos->x && i==foodPos.pos->y){
+                MacUILib_printf("%c", foodPos.getSymbol());
+                //snake = true;
                 break;
             }
 
             if(snake) continue;
-
             if (i==0 || i==myGM->getBoardSizeY()-1 || j==0 ||j==myGM->getBoardSizeX()-1) {
                 MacUILib_printf("#"); 
             } else

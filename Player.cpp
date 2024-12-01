@@ -46,8 +46,7 @@ void Player::updatePlayerDir()
 {
     //get input from pookie
     char input = mainGameMechsRef->getInput();
-
-        // PPA3 input processing logic       
+    // PPA3 input processing logic       
     switch(input)
     {
         case ' ': //exit
@@ -88,7 +87,7 @@ void Player::updatePlayerDir()
             default:
                 break;
     } 
-    mainGameMechsRef->clearInput();
+    
 }
 
 void Player::movePlayer()
@@ -158,7 +157,7 @@ void Player::movePlayer()
 
     else{
     playerPosList->insertHead(tempHead);
-    playerPosList->removeTail();
+    playerPosList->removeTail(); //for regular size
     }
 
 }
@@ -179,12 +178,13 @@ bool Player::checkFoodConsumption(){
 
     if (tempHead.pos->x==tempFood.pos->x&&tempHead.pos->y==tempFood.pos->y)
     {
-        true;
+        return true;
     }
-    false;
+    return false;
 }
 
 void Player::increasePlayerLength(){
     objPos tempHead;
+    tempHead=playerPosList->getHeadElement();
     playerPosList->insertHead(tempHead);
 }
