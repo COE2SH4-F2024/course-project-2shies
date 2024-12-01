@@ -1,7 +1,6 @@
 #include "Player.h"
 
 
-
 Player::Player(GameMechs* thisGMRef, Food* foodref)
 {
     mainGameMechsRef = thisGMRef;
@@ -89,6 +88,7 @@ void Player::updatePlayerDir()
             default:
                 break;
     } 
+    mainGameMechsRef->clearInput();
 }
 
 void Player::movePlayer()

@@ -1,19 +1,19 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
-
 #include "Player.h"
 #include "GameMechs.h"
 #include "Food.h"
+#include "objPosArrayList.h"
 
 using namespace std;
 
 #define DELAY_CONST 100000
-#define height 10
-#define length 20
 
 
 Player *myPlayer; //global pointer
+objPosArrayList* playerPosList;
+
 GameMechs *myGM; // global pointer
 Food *myFood; //global pointer
 
@@ -52,15 +52,11 @@ void Initialize(void)
 
     srand(time(NULL));
 
-
     myGM = new GameMechs();
-    myPlayer=new Player(myGM,myFood);
     myFood = new Food(myGM->getBoardSizeX(), myGM->getBoardSizeY());
+    myPlayer=new Player(myGM,myFood);
 
-    objPos tempHead;
-    tempHead=myPlayer->getPlayerPos()->getHeadElement();
-    objPos blockOff = tempHead;
-    myFood->generateFood(tempHead);
+    myFood->generateFood(myPlayer->getPlayerPos()->getHeadElement());
 }
 
 void GetInput(void)
@@ -77,7 +73,7 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
-    myGM->setInput(0);
+    //myGM->setInput(0);
 }
 
 void DrawScreen(void)
@@ -90,15 +86,17 @@ void DrawScreen(void)
     objPosArrayList* playerPos=myPlayer->getPlayerPos();
     int playerSize = playerPos->getSize();
     objPos tempBody;
+
+
     bool snake;
 
-
+    objPos tempFood;
     objPos foodPos = myFood->getFoodPos();
     //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
 
-    for (int i=0;i<height;i++)
+    for (int i=0;i<myGM->getBoardSizeY();i++)
     {
-        for (int j=0;j<length;j++)
+        for (int j=0;j<myGM->getBoardSizeX();j++)
         {
             snake = false;
             for(int k = 0; k < playerSize; k++) {
@@ -109,6 +107,15 @@ void DrawScreen(void)
                     break;
                 }
             }
+
+            if(snake) continue;
+            tempFood=playerPos->getElement(0);
+            if (j==tempFood.pos->x && i==tempFood.pos->y){
+                MacUILib_printf("%c", tempFood.getSymbol());
+                snake = true;
+                break;
+            }
+
             if(snake) continue;
 
             if (i==0 || i==myGM->getBoardSizeY()-1 || j==0 ||j==myGM->getBoardSizeX()-1) {
