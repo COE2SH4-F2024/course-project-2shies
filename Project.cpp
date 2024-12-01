@@ -105,7 +105,7 @@ void DrawScreen(void)
                 if(j == tempBody.pos->x && i == tempBody.pos->y) {
                     MacUILib_printf("%c", tempBody.getSymbol());
                     snake = true;
-                    break;
+                    break;;
                 }
             }
 
@@ -113,10 +113,10 @@ void DrawScreen(void)
             if (j==foodPos.pos->x && i==foodPos.pos->y){
                 MacUILib_printf("%c", foodPos.getSymbol());
                 //snake = true;
-                break;
+                continue;;
             }
 
-            if(snake) continue;
+            //if(snake) continue;
             if (i==0 || i==myGM->getBoardSizeY()-1 || j==0 ||j==myGM->getBoardSizeX()-1) {
                 MacUILib_printf("#"); 
             } else
@@ -124,11 +124,15 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
-    /* if(myGM->getLoseFlagStatus()) {
+    MacUILib_printf("Score: %d\n", myGM->getScore());
+    //MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
+    if(myGM->getExitFlagStatus()) {
         MacUILib_clearScreen();
-        MacUILib_printf("Womp womp, you lost. Your final score was %d", myGM->getScore());
-    } */
+        if(myGM->getLoseFlagStatus())
+            MacUILib_printf("Womp womp, you lost. Your final score was %d\n", myGM->getScore());
+        else
+            MacUILib_printf("You quit the game. Your final score was %d\n", myGM->getScore());
+    } 
 }
 
 void LoopDelay(void)
@@ -139,7 +143,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    //MacUILib_clearScreen();    
 
     myGM->~GameMechs();
     myPlayer->~Player();
