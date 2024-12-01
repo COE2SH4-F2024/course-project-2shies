@@ -123,10 +123,6 @@ void Player::movePlayer()
             } */
 
             //for loop to check if any position of head is same
-
-            playerPosList->insertHead(tempHead);
-            playerPosList->removeTail();
-            
             break;
 
         case RIGHT:
@@ -135,8 +131,6 @@ void Player::movePlayer()
             {
                 tempHead.pos->x=1;
             }
-            playerPosList->insertHead(tempHead);
-            playerPosList->removeTail();
             break;
         
         case DOWN:
@@ -145,8 +139,6 @@ void Player::movePlayer()
             {
                 tempHead.pos->y=1;
             }
-            playerPosList->insertHead(tempHead);
-            playerPosList->removeTail();
             break;
 
         case UP:
@@ -155,8 +147,6 @@ void Player::movePlayer()
             {
                 tempHead.pos->y=(mainGameMechsRef->getBoardSizeY()-1);
             }
-            playerPosList->insertHead(tempHead);
-            playerPosList->removeTail();
             break;
     }
 
@@ -164,6 +154,11 @@ void Player::movePlayer()
         increasePlayerLength();
         food->generateFood(tempHead); //will probably need to change
         mainGameMechsRef->incrementScore();
+    }
+
+    else{
+    playerPosList->insertHead(tempHead);
+    playerPosList->removeTail();
     }
 
 }
