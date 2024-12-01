@@ -27,7 +27,7 @@ void objPosArrayList::insertHead(objPos thisPos)
     {
         cout<<"Array list is full"<<endl;
         return;
-    }
+    } //maybe comment out later
     for (int i=listSize;i>0;i--)
     {
         aList[i]=aList[i-1];

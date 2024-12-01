@@ -54,11 +54,13 @@ void Initialize(void)
 
 
     myGM = new GameMechs();
-    myPlayer=new Player(myGM);
+    myPlayer=new Player(myGM,myFood);
     myFood = new Food(myGM->getBoardSizeX(), myGM->getBoardSizeY());
 
-    //objPos blockOff = myPlayer->getPlayerPos(); //this way doesn't seem to work- do it directly
-   //myFood->generateFood(myPlayer->getPlayerPos());
+    objPos tempHead;
+    tempHead=myPlayer->getPlayerPos()->getHeadElement();
+    objPos blockOff = tempHead;
+    myFood->generateFood(tempHead);
 }
 
 void GetInput(void)
@@ -75,13 +77,15 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
-    // myGM->setInput(0);
+    myGM->setInput(0);
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-
+    /*if (!myGM || !myPlayer || !myFood) {
+        MacUILib_printf("big problemo \n");
+    }*/
     //implement copy assignment operator to make work
     objPosArrayList* playerPos=myPlayer->getPlayerPos();
     int playerSize = playerPos->getSize();
@@ -89,7 +93,7 @@ void DrawScreen(void)
     bool snake;
 
 
-    //objPos foodPos = myFood->getFoodPos();
+    objPos foodPos = myFood->getFoodPos();
     //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
 
     for (int i=0;i<height;i++)
@@ -98,7 +102,7 @@ void DrawScreen(void)
         {
             snake = false;
             for(int k = 0; k < playerSize; k++) {
-                playerPos->getElement(k);
+                tempBody=playerPos->getElement(k); //this was error forgot to assign 
                 if(j == tempBody.pos->x && i == tempBody.pos->y) {
                     MacUILib_printf("%c", tempBody.getSymbol());
                     snake = true;
@@ -114,7 +118,7 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    //MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
+    MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
     /* if(myGM->getLoseFlagStatus()) {
         MacUILib_clearScreen();
         MacUILib_printf("Womp womp, you lost. Your final score was %d", myGM->getScore());

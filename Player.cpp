@@ -1,16 +1,26 @@
 #include "Player.h"
 
 
-Player::Player(GameMechs* thisGMRef)
+
+Player::Player(GameMechs* thisGMRef, Food* foodref)
 {
     mainGameMechsRef = thisGMRef;
     playerPosList = new objPosArrayList();
+
+    food=foodref;
+
     myDir = STOP;
 
     // more actions to be included
     objPos headPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
     playerPosList->insertHead(headPos);
-
+    /* //make multiple to run
+    objPos headPos1(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
+    playerPosList->insertHead(headPos1);
+    objPos headPos2(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
+    playerPosList->insertHead(headPos2);
+    objPos headPos3(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
+    playerPosList->insertHead(headPos3); */
     /*
     playerPos.pos->x=mainGameMechsRef->getBoardSizeX() / 2;
     playerPos.pos->y=mainGameMechsRef->getBoardSizeY() / 2;
@@ -87,8 +97,8 @@ void Player::movePlayer()
     updatePlayerDir();
     //insert new objPos in head of list
     //check if delete tail element
-    objPos temp;
-    temp=playerPosList->getHeadElement();
+    objPos tempHead;
+    tempHead=playerPosList->getHeadElement();
 
     //Food food(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2);
 
@@ -101,10 +111,10 @@ void Player::movePlayer()
     switch(myDir)
     {
         case LEFT:    
-            temp.pos->x--; // Shift Left
-            if (temp.pos->x==0)
+            tempHead.pos->x--; // Shift Left
+            if (tempHead.pos->x==0)
             {
-                temp.pos->x=(mainGameMechsRef->getBoardSizeX()-1);
+                tempHead.pos->x=(mainGameMechsRef->getBoardSizeX()-1);
             }
 
             /* if (temp.pos->x!=food.getFoodPos().pos->x)//food position)
@@ -114,42 +124,72 @@ void Player::movePlayer()
 
             //for loop to check if any position of head is same
 
-            playerPosList->insertHead(temp);
+            playerPosList->insertHead(tempHead);
             playerPosList->removeTail();
             
             break;
 
         case RIGHT:
-            temp.pos->x++; // Shift Right
-            if (temp.pos->x==(mainGameMechsRef->getBoardSizeX()-1))
+            tempHead.pos->x++; // Shift Right
+            if (tempHead.pos->x==(mainGameMechsRef->getBoardSizeX()-1))
             {
-                temp.pos->x=1;
+                tempHead.pos->x=1;
             }
-            playerPosList->insertHead(temp);
+            playerPosList->insertHead(tempHead);
             playerPosList->removeTail();
             break;
         
         case DOWN:
-            temp.pos->y++; // Shift String down by 1 Character
-            if (temp.pos->y==(mainGameMechsRef->getBoardSizeY()-1))
+            tempHead.pos->y++; // Shift String down by 1 Character
+            if (tempHead.pos->y==(mainGameMechsRef->getBoardSizeY()-1))
             {
-                temp.pos->y=1;
+                tempHead.pos->y=1;
             }
-            playerPosList->insertHead(temp);
+            playerPosList->insertHead(tempHead);
             playerPosList->removeTail();
             break;
 
         case UP:
-            temp.pos->y--; // Shift String up by 1 Character
-            if (temp.pos->y==0)
+            tempHead.pos->y--; // Shift String up by 1 Character
+            if (tempHead.pos->y==0)
             {
-                temp.pos->y=(mainGameMechsRef->getBoardSizeY()-1);
+                tempHead.pos->y=(mainGameMechsRef->getBoardSizeY()-1);
             }
-            playerPosList->insertHead(temp);
+            playerPosList->insertHead(tempHead);
             playerPosList->removeTail();
             break;
     }
+
+    if (checkFoodConsumption()){
+        increasePlayerLength();
+        food->generateFood(tempHead); //will probably need to change
+        mainGameMechsRef->incrementScore();
+    }
+
 }
 
 
+//get food pos
+//check for food consumption
+//if food consumed increment snake length
+//generate new food
+
 // More methods to be added
+bool Player::checkFoodConsumption(){
+    objPos tempHead;
+    tempHead=playerPosList->getHeadElement();
+
+    objPos tempFood;
+    tempFood=food->getFoodPos();
+
+    if (tempHead.pos->x==tempFood.pos->x&&tempHead.pos->y==tempFood.pos->y)
+    {
+        true;
+    }
+    false;
+}
+
+void Player::increasePlayerLength(){
+    objPos tempHead;
+    playerPosList->insertHead(tempHead);
+}

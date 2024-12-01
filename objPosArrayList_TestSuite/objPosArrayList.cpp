@@ -43,8 +43,9 @@ void objPosArrayList::insertTail(objPos thisPos)
         cout<<"Array list is full"<<endl;
         return;
     }
-    aList[listSize]=thisPos;
-    listSize++;
+    //aList[listSize]=thisPos;
+    //listSize++;
+    aList[listSize++]=thisPos;
 }
 
 void objPosArrayList::removeHead()
