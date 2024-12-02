@@ -85,7 +85,7 @@ void DrawScreen(void)
     objPos tempBody;
 
 
-    bool snake;
+    bool itemPlaced;
 
     objPos tempFood;
     //objPos foodPos;
@@ -95,22 +95,22 @@ void DrawScreen(void)
     {
         for (int j=0;j<myGM->getBoardSizeX();j++)
         {
-            snake = false;
+            itemPlaced = false;
             for(int k = 0; k < playerSize; k++) {
                 tempBody=playerPos->getElement(k);
                 if(j == tempBody.pos->x && i == tempBody.pos->y) {
                     MacUILib_printf("%c", tempBody.getSymbol());
-                    snake = true;
+                    itemPlaced = true;
                     break;
                 }
             }
 
-            if(snake) continue;
+            if(itemPlaced) continue;
             for(int k = 0; k < foodBucket->getSize(); k++) {
                 tempFood=foodBucket->getElement(k);
                 if(tempFood.pos->x==j && tempFood.pos->y== i) {
                     MacUILib_printf("%c", tempFood.getSymbol());
-                    snake = true;
+                    itemPlaced = true;
                     break;
                 }
             }
@@ -120,7 +120,7 @@ void DrawScreen(void)
                 continue;
             } */
 
-            if(snake) continue; 
+            if(itemPlaced) continue; 
             if (i==0 || i==myGM->getBoardSizeY()-1 || j==0 ||j==myGM->getBoardSizeX()-1) {
                 MacUILib_printf("#"); 
             } else
@@ -155,7 +155,7 @@ void CleanUp(void)
     //delete off the heap
     myGM->~GameMechs();
     myPlayer->~Player();
-    delete myFood;
+    myFood->~Food();
 
     MacUILib_uninit();
 }
