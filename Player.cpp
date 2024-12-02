@@ -129,6 +129,9 @@ void Player::movePlayer()
             break;
     }
 
+    playerPosList->insertHead(tempHead);
+    playerPosList->removeTail(); //for regular size
+
     if (checkFoodConsumption()){
         objPosArrayList* foodBucket = food->getFoodList();
         objPos tempFood;
@@ -139,7 +142,7 @@ void Player::movePlayer()
         
         for(int i = 0; i < 5; i++) {
             tempFood = foodBucket->getElement(i);
-            foodChar = tempHead.getSymbolIfPosEqual(&tempFood);
+            foodChar = tempFood.getSymbolIfPosEqual(&tempHead);
             if(foodChar != 0) break;
         }
 
@@ -172,8 +175,7 @@ void Player::movePlayer()
         mainGameMechsRef->setExitTrue();
     }
 
-    playerPosList->insertHead(tempHead);
-    playerPosList->removeTail(); //for regular size
+    
     
 
 }
