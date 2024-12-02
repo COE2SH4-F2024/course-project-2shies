@@ -150,15 +150,19 @@ void Player::movePlayer()
 // More methods to be added
 bool Player::checkFoodConsumption(){
     objPos tempHead;
+    objPosArrayList* foodBucket = food->getFoodList();
     tempHead=playerPosList->getHeadElement();
 
     objPos tempFood;
-    tempFood=food->getFoodPos();
-
-    if (tempHead.pos->x==tempFood.pos->x&&tempHead.pos->y==tempFood.pos->y)
-    {
-        return true;
+    //tempFood=food->getFoodPos();
+    for(int i = 0; i < foodBucket->getSize(); i++) {
+        tempFood=foodBucket->getElement(i);
+        if (tempHead.pos->x==tempFood.pos->x&&tempHead.pos->y==tempFood.pos->y)
+        {
+            return true;
+        }
     }
+
     return false;
 }
 

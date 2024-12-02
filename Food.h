@@ -24,7 +24,10 @@ class Food {
         Food& operator=(const Food &other);
 
         void generateFood(objPosArrayList* blockOff);
+        objPosArrayList* getFoodList() const;
         objPos getFoodPos() const;
+
+        
 
 };
 

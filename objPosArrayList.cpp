@@ -86,3 +86,7 @@ objPos objPosArrayList::getElement(int index) const
 {
     return aList[index];
 }
+
+void objPosArrayList::clearList() {
+    listSize = 0;
+}

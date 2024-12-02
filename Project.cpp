@@ -13,7 +13,7 @@ using namespace std;
 
 Player *myPlayer; //global pointer
 objPosArrayList* playerPosList; //global pointer
-
+objPosArrayList* foodBucket;
 GameMechs *myGM; // global pointer
 Food *myFood; //global pointer
 
@@ -80,6 +80,7 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
     objPosArrayList* playerPos=myPlayer->getPlayerPos();
+    objPosArrayList* foodBucket = myFood->getFoodList();
     int playerSize = playerPos->getSize();
     objPos tempBody;
 
@@ -87,7 +88,7 @@ void DrawScreen(void)
     bool snake;
 
     objPos tempFood;
-    objPos foodPos = myFood->getFoodPos();
+    //objPos foodPos;
     //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
 
     for (int i=0;i<myGM->getBoardSizeY();i++)
@@ -105,13 +106,21 @@ void DrawScreen(void)
             }
 
             if(snake) continue;
-            if (j==foodPos.pos->x && i==foodPos.pos->y){
+            for(int k = 0; k < foodBucket->getSize(); k++) {
+                tempFood=foodBucket->getElement(k);
+                if(tempFood.pos->x==j && tempFood.pos->y== i) {
+                    MacUILib_printf("%c", tempFood.getSymbol());
+                    snake = true;
+                    break;
+                }
+            }
+           /*  if (j==foodPos.pos->x && i==foodPos.pos->y){
                 MacUILib_printf("%c", foodPos.getSymbol());
                 //snake = true; replaced with continue
                 continue;
-            }
+            } */
 
-            //if(snake) continue; redundant
+            if(snake) continue; 
             if (i==0 || i==myGM->getBoardSizeY()-1 || j==0 ||j==myGM->getBoardSizeX()-1) {
                 MacUILib_printf("#"); 
             } else

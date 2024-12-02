@@ -21,10 +21,12 @@ class objPosArrayList
         void insertTail(objPos thisPos);
         void removeHead();
         void removeTail();
+        void clearList();
         
         objPos getHeadElement() const;
         objPos getTailElement() const;
         objPos getElement(int index) const;
+
 };
 
 #endif
