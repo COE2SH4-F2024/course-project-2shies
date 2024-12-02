@@ -143,7 +143,6 @@ void CleanUp(void)
     //delete off the heap
     myGM->~GameMechs();
     myPlayer->~Player();
-    playerPosList->~objPosArrayList();
     delete myFood;
 
     MacUILib_uninit();
