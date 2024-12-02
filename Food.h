@@ -7,7 +7,8 @@
 #include "objPosArrayList.h"
 //#include "Player.h"
 
-class Food {
+class Food 
+{
 
     private:
         objPos foodPos;
