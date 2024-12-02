@@ -158,6 +158,7 @@ void Player::movePlayer()
                 playerPosList->removeTail();
                 
                 if(mainGameMechsRef->getScore() < 0) {
+                    mainGameMechsRef->setScore();
                     mainGameMechsRef->setLoseFlag();
                     mainGameMechsRef->setExitTrue();
                 } 

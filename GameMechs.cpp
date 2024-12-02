@@ -96,3 +96,8 @@ void GameMechs::reduceScore()
 {
     score--;
 }
+
+void GameMechs::setScore()
+{
+    score=0;
+}
