@@ -26,9 +26,6 @@ class Food {
         void generateFood(objPosArrayList* blockOff);
         objPosArrayList* getFoodList() const;
         objPos getFoodPos() const;
-
-        
-
 };
 
 #endif

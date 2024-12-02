@@ -85,7 +85,7 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
-
+   
     updatePlayerDir();
 
     objPos tempHead;
@@ -129,11 +129,42 @@ void Player::movePlayer()
             break;
     }
 
-    //for (int i=0; )
     if (checkFoodConsumption()){
-        increasePlayerLength();
+        objPosArrayList* foodBucket = food->getFoodList();
+        objPos tempFood;
+        objPos tempTail;
+        char foodChar = 0;
+
+        tempTail = playerPosList->getTailElement();
+        
+        for(int i = 0; i < 5; i++) {
+            tempFood = foodBucket->getElement(i);
+            foodChar = tempHead.getSymbolIfPosEqual(&tempFood);
+            if(foodChar != 0) break;
+        }
+
+        if(foodChar == '+') {
+            for(int i = 0; i < 5; i++) {
+                mainGameMechsRef->incrementScore();
+                playerPosList->insertTail(tempTail);
+            }
+        } 
+        else if (foodChar == '-') {
+            for(int i = 0; i < 5; i++) {
+                mainGameMechsRef->reduceScore();
+                playerPosList->removeTail();
+                
+                if(mainGameMechsRef->getScore() < 0) {
+                    mainGameMechsRef->setLoseFlag();
+                    mainGameMechsRef->setExitTrue();
+                } 
+            }
+        } 
+        else if (foodChar == '^') {
+            increasePlayerLength();
+            mainGameMechsRef->incrementScore();
+        }
         food->generateFood(playerPosList); 
-        mainGameMechsRef->incrementScore();
     } 
     
     else if(checkSelfCollision()) {
