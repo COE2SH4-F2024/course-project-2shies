@@ -23,7 +23,7 @@ class Food {
         Food(const Food &other);
         Food& operator=(const Food &other);
 
-        void generateFood(objPosArrayList blockOff);
+        void generateFood(objPosArrayList* blockOff);
         objPos getFoodPos() const;
 
 };

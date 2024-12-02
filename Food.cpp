@@ -25,22 +25,22 @@ Food& Food::operator=(const Food &other) {
     }
 }
 
-void Food::generateFood(objPosArrayList blockOff) {
+void Food::generateFood(objPosArrayList* blockOff) {
     int bitVector[16][31] = {0}; // ideally would put boardsize x and y variables here but unable to use for array initialization
-    int placedFood = 0;
+    bool placedFood=false;
 
 
 
-    while (placedFood<5) {
+    while (!placedFood) {
         int x = (rand() % (boardSizeX - 2)) + 1;
         int y = (rand() % (boardSizeY - 2)) + 1;
 
-        for (int i=0;i<blockOff.getSize();i++){
-            if(bitVector[y][x] == 0 && !(blockOff.getElement(i).pos->x == x && blockOff.getElement(i).pos->y == y)) {
+        for (int i=0;i<blockOff->getSize();i++){
+            if(bitVector[y][x] == 0 && !(blockOff->getElement(i).pos->x == x && blockOff->getElement(i).pos->y == y)) {
             foodPos.pos->x = x;
             foodPos.pos->y = y;
             bitVector[y][x] = 1;
-            placedFood++;
+            placedFood=true;
         }
         }
         
