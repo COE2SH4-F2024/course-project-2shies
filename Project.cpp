@@ -129,6 +129,9 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
     MacUILib_printf("Score: %d\n", myGM->getScore());
+    MacUILib_printf("\nTo play, use WASD to move your snake. Eat the food to grow, but watch out for the minus signs...\n");
+    MacUILib_printf("If you collide with yourself or your score gets too low, you lose!\n");
+    MacUILib_printf("Press space to exit the game.\n");
     //MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
     if(myGM->getExitFlagStatus()) {
         MacUILib_clearScreen();
