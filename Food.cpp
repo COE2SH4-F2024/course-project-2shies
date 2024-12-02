@@ -29,8 +29,6 @@ void Food::generateFood(objPosArrayList* blockOff) {
     int bitVector[16][31] = {0}; // ideally would put boardsize x and y variables here but unable to use for array initialization
     bool placedFood=false;
 
-
-
     while (!placedFood) {
         int x = (rand() % (boardSizeX - 2)) + 1;
         int y = (rand() % (boardSizeY - 2)) + 1;
