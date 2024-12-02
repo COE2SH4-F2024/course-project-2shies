@@ -13,7 +13,7 @@ using namespace std;
 
 Player *myPlayer; //global pointer
 objPosArrayList* playerPosList; //global pointer
-objPosArrayList* foodBucket;
+objPosArrayList* foodBucket; //global pointer
 GameMechs *myGM; // global pointer
 Food *myFood; //global pointer
 
@@ -26,10 +26,8 @@ void LoopDelay(void);
 void CleanUp(void);
 
 
-
 int main(void)
 {
-
     Initialize();
 
     while(myGM->getExitFlagStatus() == false)  
@@ -39,9 +37,7 @@ int main(void)
         DrawScreen();
         LoopDelay();
     }
-
     CleanUp();
-
 }
 
 
@@ -79,16 +75,15 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
+
     objPosArrayList* playerPos=myPlayer->getPlayerPos();
     objPosArrayList* foodBucket = myFood->getFoodList();
     int playerSize = playerPos->getSize();
-    objPos tempBody;
+    objPos tempBody, tempFood;
 
+    bool itemPlaced; //to check if item is already placed at a point
 
-    bool itemPlaced;
-
-    objPos tempFood;
-    //objPos foodPos;
+    //for testing player
     //MacUILib_printf("Player[x,y]=[%d,%d], %c",playerPos.pos->x,playerPos.pos->y,playerPos.symbol); 
 
     for (int i=0;i<myGM->getBoardSizeY();i++)
@@ -96,9 +91,11 @@ void DrawScreen(void)
         for (int j=0;j<myGM->getBoardSizeX();j++)
         {
             itemPlaced = false;
-            for(int k = 0; k < playerSize; k++) {
+            for(int k = 0; k < playerSize; k++) //prints player body
+            {
                 tempBody=playerPos->getElement(k);
-                if(j == tempBody.pos->x && i == tempBody.pos->y) {
+                if(j == tempBody.pos->x && i == tempBody.pos->y) 
+                {
                     MacUILib_printf("%c", tempBody.getSymbol());
                     itemPlaced = true;
                     break;
@@ -106,34 +103,37 @@ void DrawScreen(void)
             }
 
             if(itemPlaced) continue;
-            for(int k = 0; k < foodBucket->getSize(); k++) {
+            for(int k = 0; k < foodBucket->getSize(); k++) //prints food
+            {
                 tempFood=foodBucket->getElement(k);
-                if(tempFood.pos->x==j && tempFood.pos->y== i) {
+                if(tempFood.pos->x==j && tempFood.pos->y== i) 
+                {
                     MacUILib_printf("%c", tempFood.getSymbol());
                     itemPlaced = true;
                     break;
                 }
             }
-           /*  if (j==foodPos.pos->x && i==foodPos.pos->y){
-                MacUILib_printf("%c", foodPos.getSymbol());
-                //snake = true; replaced with continue
-                continue;
-            } */
 
             if(itemPlaced) continue; 
-            if (i==0 || i==myGM->getBoardSizeY()-1 || j==0 ||j==myGM->getBoardSizeX()-1) {
+            if (i==0 || i==myGM->getBoardSizeY()-1 || j==0 ||j==myGM->getBoardSizeX()-1) //prints border and empty spaces
+            {
                 MacUILib_printf("#"); 
             } else
                 MacUILib_printf(" ");
         }
         MacUILib_printf("\n");
     }
-    MacUILib_printf("Score: %d\n", myGM->getScore());
-    MacUILib_printf("\nTo play, use WASD to move your snake. Eat the food to grow, but watch out for the minus signs...\n");
-    MacUILib_printf("If you collide with yourself or your score gets too low, you lose!\n");
-    MacUILib_printf("Press space to exit the game.\n");
+
+    MacUILib_printf("Score: %d\n", myGM->getScore()); //display score
+    MacUILib_printf("\nTo play, use WASD to move your snake. Eat the food to grow, but watch out for the minus signs...\n"); //game instructions
+    MacUILib_printf("If you collide with yourself or your score gets too low, you lose!\n"); //game instructions
+    MacUILib_printf("Press space to exit the game.\n"); //game instructions
+
+    //for testing food
     //MacUILib_printf("Food[x,y]=[%d,%d], %c",foodPos.pos->x,foodPos.pos->y,foodPos.symbol); 
-    if(myGM->getExitFlagStatus()) {
+
+    if(myGM->getExitFlagStatus()) 
+    {
         MacUILib_clearScreen();
         if(myGM->getLoseFlagStatus())
             MacUILib_printf("Womp womp, you lost. Your final score was %d\n", myGM->getScore());
@@ -152,7 +152,7 @@ void CleanUp(void)
 {
     //MacUILib_clearScreen(); was deleting exit messages (lose message/quitting message)
 
-    //delete off the heap
+    //delete off the heap for no memory leakage
     myGM->~GameMechs();
     myPlayer->~Player();
     myFood->~Food();

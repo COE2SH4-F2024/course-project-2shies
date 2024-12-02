@@ -9,7 +9,6 @@ GameMechs::GameMechs()
 
     boardSizeX = 30;
     boardSizeY = 15;
-
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -42,7 +41,8 @@ bool GameMechs::getLoseFlagStatus() const
 
 char GameMechs::getInput()
 {
-    if(MacUILib_hasChar()) {
+    if(MacUILib_hasChar()) 
+    {
         input = MacUILib_getChar();
     }
     return input;
@@ -92,12 +92,12 @@ void GameMechs::clearInput()
 // More methods should be added here
 
 
-void GameMechs::reduceScore()
+void GameMechs::reduceScore() //for bonus feature
 {
     score--;
 }
 
-void GameMechs::setScore()
+void GameMechs::setScore() //to ensure no negative score
 {
     score=0;
 }

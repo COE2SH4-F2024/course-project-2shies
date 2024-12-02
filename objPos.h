@@ -16,8 +16,8 @@ class objPos
 
         objPos();
         objPos(int xPos, int yPos, char sym);
-        objPos(const objPos& thisPos); //idk maybe copy constructor
-        ~objPos(); //destructor (4/4)
+        objPos(const objPos& thisPos); //copy constructor
+        ~objPos(); //destructor
         objPos& operator=(const objPos &thisPos);
         
         // Respect the rule of six / minimum four

@@ -45,7 +45,6 @@ class GameMechs
         void incrementScore();
         
         // More methods should be added here
-
         void reduceScore();
         void setScore();
 };

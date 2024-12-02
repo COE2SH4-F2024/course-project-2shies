@@ -87,6 +87,7 @@ objPos objPosArrayList::getElement(int index) const
     return aList[index];
 }
 
-void objPosArrayList::clearList() {
+void objPosArrayList::clearList() //to overwrite generated food once food collision occurs
+{
     listSize = 0;
 }
