@@ -14,6 +14,8 @@ class Food {
         int boardSizeX;
         int boardSizeY;
 
+        objPosArrayList* foodBucket; 
+
     public:
         Food(int boardX, int boardY);
         ~Food();
@@ -21,7 +23,7 @@ class Food {
         Food(const Food &other);
         Food& operator=(const Food &other);
 
-        void generateFood(objPos blockOff);
+        void generateFood(objPosArrayList blockOff);
         objPos getFoodPos() const;
 
 };

@@ -8,7 +8,8 @@ Food::Food(int boardX, int boardY){
     foodPos = objPos(-1, -1, '+'); //off board initialization
     boardSizeX = boardX;
     boardSizeY = boardY; 
-   
+
+    foodBucket = new objPosArrayList();
 }
 
 Food::~Food() {
@@ -24,20 +25,25 @@ Food& Food::operator=(const Food &other) {
     }
 }
 
-void Food::generateFood(objPos blockOff) {
+void Food::generateFood(objPosArrayList blockOff) {
     int bitVector[16][31] = {0}; // ideally would put boardsize x and y variables here but unable to use for array initialization
-    bool placedFood = false;
+    int placedFood = 0;
 
-    while (!placedFood) {
+
+
+    while (placedFood<5) {
         int x = (rand() % (boardSizeX - 2)) + 1;
         int y = (rand() % (boardSizeY - 2)) + 1;
 
-        if(bitVector[y][x] == 0 && !(blockOff.pos->x == x && blockOff.pos->y == y)) {
+        for (int i=0;i<blockOff.getSize();i++){
+            if(bitVector[y][x] == 0 && !(blockOff.getElement(i).pos->x == x && blockOff.getElement(i).pos->y == y)) {
             foodPos.pos->x = x;
             foodPos.pos->y = y;
             bitVector[y][x] = 1;
-            placedFood = true;
+            placedFood++;
         }
+        }
+        
     }
 }
 

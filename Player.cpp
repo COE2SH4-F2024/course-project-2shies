@@ -129,9 +129,10 @@ void Player::movePlayer()
             break;
     }
 
+    //for (int i=0; )
     if (checkFoodConsumption()){
         increasePlayerLength();
-        food->generateFood(tempHead); 
+        food->generateFood(*playerPosList); 
         mainGameMechsRef->incrementScore();
     } 
     

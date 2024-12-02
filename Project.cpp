@@ -56,7 +56,7 @@ void Initialize(void)
     myFood = new Food(myGM->getBoardSizeX(), myGM->getBoardSizeY());
     myPlayer=new Player(myGM,myFood);
 
-    myFood->generateFood(myPlayer->getPlayerPos()->getHeadElement());
+    myFood->generateFood(*playerPosList);
 }
 
 void GetInput(void)
