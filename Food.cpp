@@ -5,7 +5,7 @@
 
 
 Food::Food(int boardX, int boardY){
-    foodPos = objPos(-1, -1, '^'); //off board initialization
+    foodPos = objPos(-1, -1, '+'); //off board initialization
     boardSizeX = boardX;
     boardSizeY = boardY; 
    
@@ -25,11 +25,7 @@ Food& Food::operator=(const Food &other) {
 }
 
 void Food::generateFood(objPos blockOff) {
-
-    
-    //int boardSizeX = thisGMRef->getBoardSizeX();
-    //int boardSizeY = thisGMRef->getBoardSizeY();
-    int bitVector[11][21] = {0}; // ideally would put boardsize x and y variables here but need to figure out how to do that for an array
+    int bitVector[16][31] = {0}; // ideally would put boardsize x and y variables here but unable to use for array initialization
     bool placedFood = false;
 
     while (!placedFood) {

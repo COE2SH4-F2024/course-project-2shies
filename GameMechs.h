@@ -27,7 +27,7 @@ class GameMechs
     public:
         GameMechs();
         GameMechs(int boardX, int boardY);
-        ~GameMechs(); // is this one needed at all? Why or why not?
+        ~GameMechs(); // is this one needed at all? Why or why not? Not needed, don't allocate anything from this class on the heap
         
         bool getExitFlagStatus() const; 
         void setExitTrue();

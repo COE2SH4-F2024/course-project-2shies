@@ -12,7 +12,7 @@ using namespace std;
 
 
 Player *myPlayer; //global pointer
-objPosArrayList* playerPosList;
+objPosArrayList* playerPosList; //global pointer
 
 GameMechs *myGM; // global pointer
 Food *myFood; //global pointer
@@ -50,7 +50,7 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    srand(time(NULL));
+    srand(time(NULL)); //for random food position generation
 
     myGM = new GameMechs();
     myFood = new Food(myGM->getBoardSizeX(), myGM->getBoardSizeY());
@@ -61,11 +61,11 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    //check we can randomly move food around 
-    if(myGM->getInput() == 't') {
+    //for testing random food position generation
+    /* if(myGM->getInput() == 't') {
         myFood->generateFood(myPlayer->getPlayerPos()->getHeadElement());
         myGM->setInput(0);
-    }
+    } */
     
 }
 
@@ -74,16 +74,11 @@ void RunLogic(void)
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
     myGM->clearInput();
-    //myGM->setInput(0);
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-    /*if (!myGM || !myPlayer || !myFood) {
-        MacUILib_printf("big problemo \n");
-    }*/
-    //implement copy assignment operator to make work
     objPosArrayList* playerPos=myPlayer->getPlayerPos();
     int playerSize = playerPos->getSize();
     objPos tempBody;
@@ -101,22 +96,22 @@ void DrawScreen(void)
         {
             snake = false;
             for(int k = 0; k < playerSize; k++) {
-                tempBody=playerPos->getElement(k); //this was error forgot to assign 
+                tempBody=playerPos->getElement(k);
                 if(j == tempBody.pos->x && i == tempBody.pos->y) {
                     MacUILib_printf("%c", tempBody.getSymbol());
                     snake = true;
-                    break;;
+                    break;
                 }
             }
 
             if(snake) continue;
             if (j==foodPos.pos->x && i==foodPos.pos->y){
                 MacUILib_printf("%c", foodPos.getSymbol());
-                //snake = true;
-                continue;;
+                //snake = true; replaced with continue
+                continue;
             }
 
-            //if(snake) continue;
+            //if(snake) continue; redundant
             if (i==0 || i==myGM->getBoardSizeY()-1 || j==0 ||j==myGM->getBoardSizeX()-1) {
                 MacUILib_printf("#"); 
             } else
@@ -143,10 +138,12 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    //MacUILib_clearScreen();    
+    //MacUILib_clearScreen(); was deleting exit messages (lose message/quitting message)
 
+    //delete off the heap
     myGM->~GameMechs();
     myPlayer->~Player();
+    playerPosList->~objPosArrayList();
     delete myFood;
 
     MacUILib_uninit();

@@ -25,7 +25,7 @@ void objPosArrayList::insertHead(objPos thisPos)
 {
     if (listSize==arrayCapacity)
     {
-        cout<<"Array list is full"<<endl;
+        cout<<"Array list is full"<<endl; //for error handling
         return;
     }
     for (int i=listSize;i>0;i--)
@@ -40,11 +40,9 @@ void objPosArrayList::insertTail(objPos thisPos)
 {
     if (listSize==arrayCapacity)
     {
-        cout<<"Array list is full"<<endl;
+        cout<<"Array list is full"<<endl; //for error handling
         return;
     }
-    //aList[listSize]=thisPos;
-    //listSize++;
     aList[listSize++]=thisPos;
 }
 
@@ -52,7 +50,7 @@ void objPosArrayList::removeHead()
 {
     if (listSize==0)
     {
-        cout<<"Array list is empty"<<endl;
+        cout<<"Array list is empty"<<endl; //for error handling
         return;
     }
     for (int i=0;i<listSize-1;i++)
@@ -67,7 +65,7 @@ void objPosArrayList::removeTail()
 {
     if (listSize==0)
     {
-        cout<<"Array list is empty"<<endl;
+        cout<<"Array list is empty"<<endl; //for error handling
         return;
     }
 

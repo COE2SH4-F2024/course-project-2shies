@@ -11,7 +11,6 @@ class Food {
 
     private:
         objPos foodPos;
-        //GameMechs* thisGMRef;
         int boardSizeX;
         int boardSizeY;
 
@@ -26,8 +25,5 @@ class Food {
         objPos getFoodPos() const;
 
 };
-
-
-
 
 #endif

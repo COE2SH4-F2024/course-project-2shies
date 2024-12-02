@@ -22,9 +22,6 @@ objPos::objPos(const objPos& thisPos)
 {
     
     pos=new Pos(*thisPos.pos); //using copy constructor
-    //if (pos!=nullptr) delete pos;
-    //pos->x=thisPos.pos->x;
-    //pos->y=thisPos.pos->y;
     symbol=thisPos.symbol;
 }
 objPos::~objPos()
@@ -35,11 +32,6 @@ objPos& objPos::operator=(const objPos &thisPos)
 {
     if(this != &thisPos)
     {
-        //if(pos!=nullptr) delete pos;
-        //pos=new Pos;
-        //pos->x=thisPos.pos->x;
-        //pos->y=thisPos.pos->y;
-        //symbol=thisPos.symbol;
         *pos=*thisPos.pos;
         symbol=thisPos.symbol;
     }
